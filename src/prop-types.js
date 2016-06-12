@@ -11,6 +11,7 @@ export default {
   className: React.PropTypes.string,
   inputClassName: React.PropTypes.string,
   location: React.PropTypes.object,
+  region: React.PropTypes.string,
   radius: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.number

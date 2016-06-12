@@ -137,11 +137,15 @@ class Geosuggest extends React.Component {
       ak: 'zaGZEDHau49KNhe4lQGs7f75'
     };
 
-    ['location', 'region'].forEach(option => {
+    ['region'].forEach(option => {
       if (this.props[option]) {
         options[option] = this.props[option];
       }
     });
+
+    if (this.props.location) {
+      options.location = ','.join([this.props.lat, this.props.lon]);
+    }
 
     window.$.ajax({
       type: 'get',
@@ -151,7 +155,19 @@ class Geosuggest extends React.Component {
       jsonp: 'callback',
       success: data => {
         if (data.status === 0) {
-          this.updateSuggests(data.result);
+          this.updateSuggests(data.result.map(item => {
+            return {
+              label: item.name,
+              placeId: item.uid,
+              location: item.location,
+              city: {
+                id: item.cityid,
+                name: item.city
+              },
+              business: item.business,
+              district: item.district
+            };
+          }));
         } else {
           this.updateSuggests([]);
         }
@@ -195,13 +211,10 @@ class Geosuggest extends React.Component {
       if (!skipSuggest(suggest)) {
         suggests.push({
           label: this.props.getSuggestLabel(suggest),
-          placeId: suggest.uid,
+          placeId: suggest.placeId,
           isFixture: false,
           location: suggest.location,
-          city: {
-            id: suggest.cityid,
-            name: suggest.name
-          },
+          city: suggest.city,
           business: suggest.business,
           district: suggest.district
         });

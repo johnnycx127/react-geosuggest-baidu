@@ -8,6 +8,7 @@ export default {
   disabled: false,
   className: '',
   inputClassName: '',
+  region: '全国',
   location: null,
   radius: null,
   bounds: null,
@@ -21,7 +22,7 @@ export default {
   onBlur: () => {},
   onChange: () => {},
   skipSuggest: () => {},
-  getSuggestLabel: suggest => suggest.name,
+  getSuggestLabel: suggest => suggest.label,
   autoActivateFirstSuggest: false,
   style: {
     'input': {},
