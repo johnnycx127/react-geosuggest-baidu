@@ -133,11 +133,10 @@ class Geosuggest extends React.Component {
 
     const options = {
       query: this.state.userInput,
-      output: 'json',
-      ak: 'zaGZEDHau49KNhe4lQGs7f75'
+      output: 'json'
     };
 
-    ['region'].forEach(option => {
+    ['region', 'ak'].forEach(option => {
       if (this.props[option]) {
         options[option] = this.props[option];
       }
